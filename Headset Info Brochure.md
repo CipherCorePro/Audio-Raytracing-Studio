@@ -48,6 +48,7 @@ Für Anfragen und Partnerschaften:
 > **Audio Raytracing Studio** — Echter Raum. Echter Klang. Überall.
 
 ---
+![image](https://github.com/user-attachments/assets/807a548f-3f88-41fd-b3e4-7cdffeddb9c9)
 
 
 
