@@ -1,4 +1,5 @@
-![ARS2](https://github.com/user-attachments/assets/6b56964e-81e6-4e39-868e-35ee5c4d875a)
+
+![ARS2](https://github.com/user-attachments/assets/18762ed0-9130-4c86-987a-2011c4a830ac)
 
 # Erleben Sie echten 3D-Sound auf jedem Kopfhörer
 ![image](https://github.com/user-attachments/assets/894148ef-f7d0-4024-ba04-b4ebc9225d8a)
