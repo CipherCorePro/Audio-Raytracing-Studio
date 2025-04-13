@@ -44,7 +44,7 @@ Erleben Sie Raumklang, als wären Sie mitten im Geschehen — einfach über Ihre
 
 Mehr Informationen und Projekte:
 
-[CipherCorePro auf GitHub](https://github.com/CipherCorePro)
+[CipherCorePro auf GitHub](https://github.com/CipherCorePro/Audio-Raytracing-Studio.git)
 
 Für Anfragen und Partnerschaften:
 **Kontaktieren Sie uns direkt!**
