@@ -3,6 +3,14 @@
 Ein web-basiertes Werkzeug zur erstellung von Audioquellen in virtuellen akustischen Umgebungen, zur Anwendung von Halleffekten (prozedural oder via Impulsantwort) und zur Positionierung im 3D-Raum mit Mehrkanal-Audioausgabe.
 
 ---
+![image](https://github.com/user-attachments/assets/57429134-539c-450e-8d02-6f23a3b88685)
+---
+![image](https://github.com/user-attachments/assets/0ed18cd9-d5e5-4714-b437-c3ae28b141e6)
+---
+![image](https://github.com/user-attachments/assets/f7bef6f6-4841-45b6-ac7f-a227dbd75404)
+---
+![image](https://github.com/user-attachments/assets/22e268e3-a4a3-421b-a9f7-5c439a7c7fc4)
+---
 
 ## ✨ Hauptfunktionen
 
