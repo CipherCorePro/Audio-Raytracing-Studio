@@ -7,8 +7,23 @@
 
 Dieses Projekt bietet eine Benutzeroberfläche (erstellt mit Gradio), um Audio-Dateien oder Mikrofoneingaben mit simulierten Raumreflexionen und Nachhall zu versehen. Es ermöglicht die Auswahl verschiedener Raumtypen und Materialien, die Anpassung von Mix-Parametern und Equalizing sowie die Positionierung der Klangquelle in einem virtuellen 5.1 Surround-Feld. Die Ausgabe erfolgt als 6-Kanal-WAV-Datei.
 
-<!-- Füge hier einen Screenshot oder ein GIF der Benutzeroberfläche ein, um einen visuellen Eindruck zu geben -->
-<!-- z.B. ![UI Screenshot](docs/screenshot.png) -->
+![image](https://github.com/user-attachments/assets/431dbfd7-4624-468c-9812-28f300489517)
+
+
+![image](https://github.com/user-attachments/assets/a9f02a47-4fac-4935-b850-b9347ffe0311)
+
+
+![image](https://github.com/user-attachments/assets/fb76ed44-25ce-4eb1-87f3-96b8466ba4d8)
+
+
+![image](https://github.com/user-attachments/assets/6b973420-ce57-495f-a07f-5b794e46a55e)
+
+![image](https://github.com/user-attachments/assets/2fec94e7-83b2-41d6-9a63-cbc70749723d)
+
+
+
+
+
 
 ---
 
