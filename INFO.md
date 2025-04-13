@@ -1,5 +1,6 @@
 
-# Audio-Raytracing-Studio  
+# Audio-Raytracing-Studio  ![ARS2](https://github.com/user-attachments/assets/bf7abafb-482e-457c-9859-b116f5d393f8)
+
 *"Sound, wie er sein sollte."*
 
 ---
