@@ -1,177 +1,168 @@
-# 🎶 Audio Raytracing Studio v3.4 🎶
+# 🎶 Audio Raytracing Studio 
 
-[![Lizenz: MIT](https://img.shields.io/badge/Lizenz-MIT-blue.svg)](LICENSE) <!-- Ersetze dies ggf. mit deiner Lizenz -->
-[![Python Version](https://img.shields.io/badge/Python-3.8+-blue.svg)]() <!-- Passe die Python-Version ggf. an -->
-
-**Ein interaktives Werkzeug zur Simulation von Raumakustik und 5.1 Surround-Positionierung mit Gradio.**
-
-Dieses Projekt bietet eine Benutzeroberfläche (erstellt mit Gradio), um Audio-Dateien oder Mikrofoneingaben mit simulierten Raumreflexionen und Nachhall zu versehen. Es ermöglicht die Auswahl verschiedener Raumtypen und Materialien, die Anpassung von Mix-Parametern und Equalizing sowie die Positionierung der Klangquelle in einem virtuellen 5.1 Surround-Feld. Die Ausgabe erfolgt als 6-Kanal-WAV-Datei.
+Ein web-basiertes Werkzeug zur erstellung von Audioquellen in virtuellen akustischen Umgebungen, zur Anwendung von Halleffekten (prozedural oder via Impulsantwort) und zur Positionierung im 3D-Raum mit Mehrkanal-Audioausgabe.
 
 ---
 
-## ✨ Hauptmerkmale
+## ✨ Hauptfunktionen
 
-*   **Flexible Audioquellen:** Verarbeite hochgeladene Audio-Dateien (WAV, MP3 etc.) oder direkte Mikrofonaufnahmen.
-*   **Raumsimulation:**
-    *   🏩️ **Hall-Typen:** Wähle zwischen vordefinierten Charakteristika wie `Plate`, `Room`, `Cathedral`, die interne Reverb-Parameter (Nachhallzeit, Reflexionsdichte, Early/Late-Verteilung) beeinflussen.
-    *   🧱 **Materialauswahl:** Simuliere unterschiedliche Oberflächenmaterialien (`Stein`, `Holz`, `Teppich`, `Glas`), die die Klangfarbe und Dämpfung der Reflexionen beeinflussen.
-    *   ⚙️ **Split Impulse Response (IR):** Generiert getrennte Impulsantworten für *Early Reflections* (frühe Reflexionen) und *Late Reverb* (Nachhallfahne) für eine detailliertere Kontrolle.
-    *   🧭 **Positionsabhängige Direktheit (Directionality):** Die wahrgenommene Gerichtetheit des Halls wird automatisch basierend auf der X/Y-Position und dem Hall-Typ berechnet (zentrale Positionen klingen gerichteter, Randpositionen diffuser).
-*   **Erweiterte Mix-Kontrolle:**
-    *   ⚖️ **Adaptive Early/Late Balance:** Das Verhältnis von frühen Reflexionen zu spätem Nachhall passt sich dynamisch an den `Dry/Wet`-Regler an, für einen natürlicheren Übergang von direktem Klang zu vollem Effekt.
-    *   🔇 **Dynamisches Dry-Signal-Muting:** Das Originalsignal (Dry) wird optional ab einem einstellbaren `Dry/Wet`-Wert (`Dry Kill Start`) ausgeblendet, um Überlagerungen bei hohem Effektanteil zu vermeiden.
-    *   🎚️ **Dry/Wet-Mix:** Stufenlose Kontrolle über das Verhältnis von Originalsignal zu Effektsignal.
-    *   🔊 **Basis Early/Late Level:** Grundlautstärke für frühe Reflexionen und Nachhall einstellbar.
-*   **Equalizer:**
-    *   📉 **Bass Gain:** Anhebung/Absenkung tiefer Frequenzen.
-    *   📈 **Treble Gain:** Anhebung/Absenkung hoher Frequenzen.
-*   **Surround-Positionierung:**
-    *   📡 **Interaktive 5.1 Map:** Positioniere die Klangquelle visuell durch Klicken auf eine Karte oder numerisch über X/Y-Slider.
-    *   🔊 **6-Kanal-Ausgabe:** Generiert eine Standard 5.1 WAV-Datei (FL, FR, C, LFE, RL, RR).
-*   **Visualisierung:**
-    *   📊 **Wellenform & Spektrogramm:** Vergleiche das Original- und das bearbeitete Audio visuell.
-*   **Preset-Management:**
-    *   🛠️ **Speichern/Laden:** Speichere und lade alle Einstellungen als JSON-Presets.
-    *   🗑️ **Verwalten:** Lösche Presets, aktualisiere die Liste.
-    *   📦 **Exportieren:** Exportiere alle Presets als ZIP-Archiv.
-*   **Benutzerfreundliche Oberfläche:**
-    *   🎨 **Gradio UI:** Intuitive Bedienung über Tabs in einer Web-Oberfläche.
-    *   📝 **Integrierte Hilfe:** Eine ausführliche Erklärung der Funktionen direkt in der App.
+*   **🔊 Audio-Eingabe:** Unterstützt das Hochladen gängiger Audiodateiformate (WAV, MP3, etc. - benötigt FFmpeg für Nicht-WAV) sowie 🎤 Mikrofonaufnahmen direkt im Browser.
+*   **💡 Zwei Hall-Modi:**
+    *   **Interner Hall:** Prozedural generierter Hall mit wählbaren Typen (Plate, Room, Cathedral) und anpassbaren Parametern.
+    *   **Externe Impulsantwort (IR):** Verwendung eigener Stereo-WAV-Dateien als Impulsantwort für präzise Hall-Simulationen.
+*   **⚙️ Detaillierte Hall-Parameter (Intern):**
+    *   **Hall-Typ:** Grundlegender Charakter des Halls (Plate, Room, Cathedral).
+    *   **Material:** Auswahl von Oberflächenmaterialien (Stein, Holz, Teppich etc.) zur Beeinflussung der Absorption.
+    *   **Raumgröße (m³):** Skaliert Hallparameter wie Dauer und Delay für unterschiedliche Raumdimensionen.
+    *   **Diffusion:** Steuert die Dichte und Glättung des Nachhalls.
+    *   **Luftabsorption:** Simuliert die frequenzabhängige Dämpfung durch Luft, beeinflusst hohe Frequenzen im Nachhall.
+    *   **Early/Late Levels:** Basis-Lautstärken für frühe Reflexionen und den späten Nachhall.
+*   **🎚️ Mix & EQ:**
+    *   **Dry/Wet Mix:** Stufenlose Mischung zwischen Originalsignal (Dry) und bearbeitetem Signal (Wet).
+    *   **Dry Kill Start:** Dynamisches Ausblenden des Dry-Signals bei hohem Wet-Anteil.
+    *   **Einfacher EQ:** Bass- und Höhenanhebung/-absenkung auf das gemischte Signal.
+*   **📍 3D-Positionierung:**
+    *   Interaktive 2D-Karte zum Setzen der X/Y-Position (Links/Rechts, Vorne/Hinten).
+    *   Separate Slider für X, Y und Z (Unten/Oben).
+    *   Die Position beeinflusst das Panning und interne Hallparameter (z.B. Direktheit, Höhenkanal-Generierung).
+*   **🎯 Mehrkanal-Ausgabe:**
+    *   Auswahl verschiedener Ziel-Layouts: Stereo, 5.1, 7.1, 5.1.2 (Atmos Light).
+    *   **Kanal-Mapping:** Intern wird in 5.1 gearbeitet. Das Ergebnis wird auf das Ziel-Layout gemappt.
+        *   **Stereo:** Downmix aus 5.1.
+        *   **7.1 / 5.1.2:** Basis-Generierung von Side- bzw. Height-Kanälen durch Verzögerung/Skalierung der Rear-Kanäle.
+*   **💾 Ausgabe & Download:**
+    *   Das bearbeitete Audio kann direkt angehört werden.
+    *   Bereitstellung eines Download-Links für die resultierende WAV-Datei (16-bit PCM).
+*   **📊 Analyse & Metriken:**
+    *   **Sofort-Metriken:** Anzeige von LUFS (Integrated), True Peak (dBFS) und RMS (dBFS) des Gesamtergebnisses nach der Verarbeitung.
+    *   **Visualizer:** Vergleich von Original und bearbeitetem Audio anhand von Wellenform- und Spektrogramm-Plots.
+    *   **Profiler:** Detaillierter Bericht zum Vergleich von Original und Ergebnis (Lautheit, Pegel, Stereobreite, Kanalpegel).
+*   **📁 Preset-Management:**
+    *   Speichern und Laden von kompletten Einstellungen als JSON-Dateien (v4 Format).
+    *   Löschen von Presets.
+    *   Aktualisieren der Preset-Liste.
+    *   Exportieren aller Presets als ZIP-Archiv.
+    *   Die Anwendung merkt sich das zuletzt geladene Preset.
 
 ---
 
-## 🚀 Installation & Setup
+## 🚀 Erste Schritte
 
-1.  **Repository klonen:**
+### Voraussetzungen
+
+*   **Python:** Version 3.8 oder höher empfohlen.
+*   **pip:** Python Paket-Installer (normalerweise mit Python enthalten).
+*   **FFmpeg:** (Optional, aber **stark empfohlen**) Wird von `soundfile` benötigt, um Audioformate außer WAV (z.B. MP3, FLAC, OGG) zu laden. Stellen Sie sicher, dass `ffmpeg` installiert und im Systempfad (`PATH`) verfügbar ist. Sie können es von [ffmpeg.org](https://ffmpeg.org/download.html) herunterladen.
+
+### Abhängigkeiten
+
+Die Anwendung benötigt folgende Python-Bibliotheken:
+
+*   `numpy`
+*   `gradio`
+*   `scipy`
+*   `matplotlib`
+*   `Pillow`
+*   `soundfile`
+*   `pyloudnorm`
+
+### Installation
+
+1.  **Klonen Sie das Repository oder laden Sie den Code herunter.**
+2.  **Navigieren Sie im Terminal zum Projektverzeichnis.**
+3.  **Installieren Sie die Abhängigkeiten:**
     ```bash
-    git clone https://github.com/CipherCorePro/Audio-Raytracing-Studio-v3.4.git
-    cd Audio-Raytracing-Studio-v3.4
-    ```
-   
-
-2.  **Virtuelle Umgebung (Empfohlen):**
-    ```bash
-    python -m venv venv
-    # Windows:
-    venv\Scripts\activate
-    # macOS/Linux:
-    source venv/bin/activate
+    pip install numpy gradio scipy matplotlib pillow soundfile pyloudnorm
     ```
 
-3.  **Abhängigkeiten installieren:**
-    Stelle sicher, dass du `pip` aktuell hast (`python -m pip install --upgrade pip`).
-    ```bash
-    pip install -r requirements.txt
-    ```
-    Die `requirements.txt` sollte Folgendes enthalten (oder du installierst sie manuell):
-    ```txt
-    numpy
-    gradio
-    scipy
-    pydub
-    matplotlib
-    Pillow
-    ```
+### Ausführen der Anwendung
 
-4.  ⚠️ **Externe Abhängigkeit: FFmpeg:**
-    *   Für das Laden und Verarbeiten von **Nicht-WAV-Dateien** (wie MP3, OGG, FLAC etc.) verwendet `pydub` im Hintergrund **FFmpeg**.
-    *   **Du musst FFmpeg separat installieren** und sicherstellen, dass es im System-PATH verfügbar ist. Ansonsten schlägt das Laden dieser Formate fehl!
-    *   Downloads und Anleitungen: [FFmpeg Offizielle Seite](https://ffmpeg.org/download.html)
+Führen Sie das Python-Skript im Terminal aus:
 
-5.  **Surround Layout Bild:**
-    *   Das Skript benötigt eine Bilddatei namens `surround_layout.png` im selben Verzeichnis für die interaktive Karte.
-    *   Wenn die Datei nicht gefunden wird, versucht das Skript beim Start, ein einfaches Platzhalter-Bild zu erstellen. Du kannst dieses durch ein eigenes, passenderes Layout ersetzen.
+```bash
+python test.py
+```
+
+Die Anwendung sollte starten und eine lokale URL ausgeben (standardmäßig `http://0.0.0.0:8861` oder `http://127.0.0.1:8861`). Öffnen Sie diese URL in Ihrem Webbrowser.
 
 ---
 
-## 🛠️ Benutzung
+## 🔧 Benutzungsanleitung
 
-1.  **Starte die Anwendung:**
-    Navigiere im Terminal zum Projektverzeichnis (wo sich dein Python-Skript befindet) und führe aus:
-    ```bash
-    python audio_raytracing_studio_v3_4.py
-    ```
-    *(Passe `audio_raytracing_studio_v3_4.py` an den tatsächlichen Namen deines Skripts an)*
-
-2.  **Öffne die Web-Oberfläche:**
-    Die Anwendung wird normalerweise unter `http://127.0.0.1:7860` (oder einer ähnlichen Adresse, siehe Terminal-Ausgabe) in deinem Browser geöffnet.
-
-3.  **Workflow:**
-    *   **Tab "Audio-Verarbeitung":** Lade eine Audiodatei hoch oder verwende das Mikrofon. Wähle einen `Hall-Typ` und ein `Material`. Stelle die `Basis Early/Late Level`, den `Dry/Wet`-Mix, den `Dry Kill Start`-Wert und die `EQ`-Einstellungen ein.
-    *   **Tab "5.1 Surround Map":** Klicke auf die Karte oder benutze die `X/Y`-Slider, um die Position der Klangquelle festzulegen. Dies beeinflusst Panning und Hall-Charakteristik (Directionality).
-    *   **Tab "Audio-Verarbeitung":** Klicke auf den Button `➡️ Verarbeiten & Anhören!`.
-    *   Das Ergebnis wird im Audio-Player angezeigt und steht als 6-Kanal-WAV-Datei zum Download bereit.
-    *   **Tab "Visualizer":** Lade optional das Original- und das verarbeitete Audio, um Wellenform und Spektrogramm zu vergleichen.
-    *   **Tab "Preset-Editor":** Verwalte deine Lieblingseinstellungen.
-    *   **Tab "Hilfe & Dokumentation":** Lies die detaillierte Funktionsbeschreibung direkt in der App.
-
----
-
-## 📦 Abhängigkeiten
-
-*   **Python:** 3.8+
-*   **Python-Bibliotheken:** Siehe `requirements.txt` (Numpy, Gradio, Scipy, Pydub, Matplotlib, Pillow)
-*   **Extern:** FFmpeg (für Nicht-WAV-Audioformate)
-
----
-
-## 🔑 Schlüsselkonzepte
-
-*   **Split Impulse Response (Split IR):** Statt einer einzigen Impulsantwort werden zwei separate generiert: eine für die frühen, gerichteten Reflexionen (Early Reflections) und eine für den diffusen, längeren Nachhall (Late Reverb). Dies ermöglicht eine differenziertere Simulation und Kontrolle.
-*   **Directionality (Gerichtetheit):** Ein berechneter Wert (zwischen 0 und 1), der angibt, wie gerichtet oder diffus der simulierte Hall klingt. Er hängt vom gewählten Hall-Typ und der Position der Klangquelle ab. Ein höherer Wert bedeutet mehr Betonung auf klaren, frühen Reflexionen (typisch für Schallquellen nahe der Mitte oder in "harten" Räumen wie Plate-Hall). Ein niedrigerer Wert bedeutet einen diffuseren, weicheren Hall (typisch für Randpositionen oder große Räume wie Kathedralen).
-*   **Adaptive Early/Late Balance:** Die Lautstärken von Early Reflections und Late Reverb werden nicht nur durch ihre Basis-Slider, sondern auch dynamisch durch den Dry/Wet-Regler beeinflusst. Bei niedrigem Dry/Wet (nahe am Originalsignal) werden die Early Reflections relativ lauter, um Präsenz zu erhalten. Bei hohem Dry/Wet (viel Effekt) wird der Late Reverb betont, um die Hallfahne hervorzuheben.
-*   **Dynamic Dry Muting:** Eine Technik, bei der das unbearbeitete Originalsignal (Dry) automatisch leiser wird, wenn der Dry/Wet-Regler über einen bestimmten Schwellenwert (`Dry Kill Start`) bewegt wird. Dies verhindert, dass sich das laute Originalsignal unangenehm mit einem lauten Effektsignal überlagert, besonders bei hohen Wet-Anteilen.
-
----
-
-## ❓ FAQ (Häufig gestellte Fragen)
-
-*   **F: Warum ist die Ausgabe eine 6-Kanal-WAV-Datei? Wie spiele ich sie ab?**
-    *   **A:** Das Tool simuliert eine 5.1 Surround-Positionierung. Die 6 Kanäle entsprechen dem Standard 5.1-Layout (FL, FR, C, LFE, RL, RR). Du benötigst eine Audiowiedergabesoftware (z.B. VLC Media Player, Audacity, professionelle DAWs) und idealerweise ein 5.1-Audiosystem, um das Ergebnis korrekt zu hören. Viele Player mischen 5.1 automatisch auf Stereo herunter, aber der räumliche Effekt geht dabei teilweise verloren.
-*   **F: Ich kann keine MP3- (oder andere Nicht-WAV) Dateien laden. Woran liegt das?**
-    *   **A:** Dies liegt höchstwahrscheinlich daran, dass **FFmpeg** nicht korrekt installiert ist oder nicht im System-PATH gefunden wird. Pydub benötigt FFmpeg für die Konvertierung dieser Formate. Siehe Abschnitt "Installation & Setup". Überprüfe deine FFmpeg-Installation.
-*   **F: Was genau bedeutet "Directionality"?**
-    *   **A:** Siehe Abschnitt "Schlüsselkonzepte". Es ist ein Maß dafür, wie stark die frühen, gerichteten Reflexionen im Hall im Verhältnis zum diffusen Nachhall ausgeprägt sind. Dies wird automatisch basierend auf Raumtyp und Position angepasst.
-*   **F: Wie interagieren "Adaptive Balance" und "Dynamic Dry Muting"?**
-    *   **A:** Beide werden durch den `Dry/Wet`-Regler gesteuert. Während `Adaptive Balance` das *Verhältnis* zwischen Early und Late Reverb im Effektsignal anpasst, reduziert `Dynamic Dry Muting` die Lautstärke des *Originalsignals* selbst, wenn der Effektanteil hoch ist. Sie arbeiten zusammen, um einen ausgewogenen Mix über den gesamten Dry/Wet-Bereich zu erzielen.
-*   **F: Wo werden meine Presets gespeichert?**
-    *   **A:** Die Presets werden als `.json`-Dateien im Unterordner `presets` gespeichert, der automatisch im Verzeichnis des Skripts erstellt wird.
-*   **F: Ich erhalte einen Fehler während der Verarbeitung. Was kann ich tun?**
-    *   **A:** Überprüfe die Terminal-Ausgabe, in der du das Skript gestartet hast. Dort werden detailliertere Fehlermeldungen und Tracebacks ausgegeben, die Hinweise auf das Problem geben können (z.B. Probleme beim Laden der Datei, Speicherprobleme bei sehr langen Dateien, ungültige Parameter). Stelle sicher, dass FFmpeg installiert ist, falls du Nicht-WAV-Dateien verwendest.
+1.  **🎶 Audio laden:**
+    *   Verwenden Sie die Upload-Komponente ("🔊 Audio hochladen"), um eine Audiodatei von Ihrem Computer auszuwählen.
+    *   Oder verwenden Sie die Mikrofon-Komponente ("🎤 Mikrofonaufnahme"), um direkt aufzunehmen.
+    *   *Hinweis: Wenn beides bereitgestellt wird, hat der Upload Vorrang.*
+2.  **💡 Modus wählen:**
+    *   **Interner Hall:** Lassen Sie die Checkbox "💡 Externe Stereo IR verwenden?" deaktiviert. Passen Sie die Parameter im Akkordeon "⚙️ Raum & Hall Charakteristik" an.
+    *   **Externe IR:** Aktivieren Sie die Checkbox und laden Sie eine Stereo-WAV-Impulsantwortdatei über "📂 Externe IR-Datei" hoch. Die internen Hallparameter werden ignoriert.
+3.  **⚙️ Hall/Raum anpassen (nur interner Modus):**
+    *   Wählen Sie den `Hall-Typ` und das `Material`.
+    *   Passen Sie `Raumgröße`, `Diffusion` und `Luftabsorption` an.
+    *   Stellen Sie die Grundlautstärken mit `Basis Early Level` und `Basis Late Level` ein.
+4.  **🔊 Mix & EQ anpassen:**
+    *   Regeln Sie das Verhältnis von Original zu Effekt mit `Dry/Wet Mix`.
+    *   Bestimmen Sie, ab wann das Originalsignal ausgeblendet wird, mit `Dry Kill Start`.
+    *   Optional: Passen Sie `Bass Gain` und `Treble Gain` an.
+5.  **📍 3D Positionieren:**
+    *   Klicken Sie in die obere Karte ("Karte (Klicken für X/Y)"), um die X- und Y-Position festzulegen.
+    *   Verwenden Sie die Slider `↔️ X`, `↕️ Y`, ` L Z`, um die Position fein einzustellen. Die untere Karte ("🎯 Position (X/Y)") zeigt die aktuelle X/Y-Markerposition.
+6.  **🎯 Ziel-Layout wählen:**
+    *   Wählen Sie das gewünschte Ausgabeformat aus dem Dropdown-Menü (z.B. "5.1 (Standard)", "Stereo").
+7.  **➡️ Verarbeiten:**
+    *   Klicken Sie auf den Button "➡️ Verarbeiten & Anhören!".
+    *   Die Verarbeitung kann je nach Dateilänge und Einstellungen einige Zeit dauern.
+    *   Das Ergebnis erscheint im Player "🎧 Ergebnis anhören".
+    *   Die berechneten Gesamtmetriken werden unter "📊 Ergebnis-Metriken" angezeigt.
+    *   Ein Link zum Herunterladen der resultierenden WAV-Datei erscheint bei "💾 Download Ergebnis".
+8.  **📊 Analyse (Optional):**
+    *   Wechseln Sie zum Tab "📊 Visualizer & ⚖️ Profiler".
+    *   Laden Sie die Originaldatei in "🔍 Original (...)".
+    *   Laden Sie die Ergebnisdatei in "🔍 Bearbeitet (...)". Sie können dazu den Button " Lade letztes Ergebnis (Bearb.)" verwenden, um die zuletzt generierte Datei zu laden.
+    *   Klicken Sie auf "📊 Visualisieren", um Wellenform/Spektrogramm zu sehen.
+    *   Klicken Sie auf "🚀 Analysieren!", um den detaillierten Profiler-Bericht zu erhalten.
+9.  **🛠️ Presets (Optional):**
+    *   Wechseln Sie zum Tab "🛠 Preset-Editor (v4)".
+    *   Geben Sie einen Namen ein und klicken Sie auf "💾 Speichern", um die aktuellen Einstellungen zu sichern.
+    *   Wählen Sie ein gespeichertes Preset aus der Liste und klicken Sie auf "📥 Laden", um es anzuwenden.
+    *   Verwalten Sie Presets mit "🔄 Liste neu laden" und "🗑️ Löschen".
+    *   Exportieren Sie alle Presets mit "📦 ZIP Export".
 
 ---
 
-## 📚 Glossar
+## ⚙️ Parameter-Erklärungen (Auswahl)
 
-*   **Absorption:** Das Maß, wie viel Schallenergie von einer Oberfläche geschluckt (absorbiert) statt reflektiert wird. Materialien wie Teppich absorbieren mehr als Glas oder Stein.
-*   **Convolution (Faltung):** Mathematischer Prozess, bei dem ein Audiosignal mit einer Impulsantwort (IR) kombiniert wird, um den Effekt der IR (z.B. Raumhall) auf das Signal anzuwenden.
-*   **Directionality (Gerichtetheit):** Beschreibt, ob Schallwellen (insbesondere frühe Reflexionen) von einer bestimmten Richtung zu kommen scheinen (gerichtet) oder scheinbar von überall (diffus).
-*   **Dry/Wet Mix:** Das Mischungsverhältnis zwischen dem unbearbeiteten Originalsignal ("Dry") und dem bearbeiteten Effektsignal ("Wet"). 0% = nur Dry, 100% = nur Wet.
-*   **Early Reflections (ER):** Die ersten Schallreflexionen, die nach dem Direktschall am Hörer eintreffen. Sie geben wichtige Informationen über die Größe und Form des Raumes und die Position der Schallquelle.
-*   **Equalizer (EQ):** Werkzeug zur Anpassung der Lautstärke bestimmter Frequenzbereiche eines Audiosignals (z.B. Anheben von Bässen, Absenken von Höhen).
-*   **FFmpeg:** Eine freie Software-Suite zum Aufnehmen, Konvertieren und Streamen von Audio und Video. Wird von Pydub für viele Dateiformate benötigt.
-*   **Gradio:** Eine Python-Bibliothek zum schnellen Erstellen von Web-basierten Benutzeroberflächen für Machine-Learning-Modelle und beliebige Python-Funktionen.
-*   **Impulse Response (IR - Impulsantwort):** Eine Aufnahme oder Simulation der Reaktion eines Raumes (oder Systems) auf einen sehr kurzen, lauten Impuls (wie ein Pistolenschuss oder Klatschen). Sie enthält alle Informationen über die Reflexionen und den Nachhall des Raumes.
-*   **Late Reverb (LR):** Der diffuse Nachhall, der nach den Early Reflections auftritt. Er besteht aus einer sehr hohen Dichte an Reflexionen, die nicht mehr einzeln unterscheidbar sind und den Raumeindruck prägen.
-*   **Panning:** Die Platzierung eines Audiosignals im Stereofeld (links/rechts) oder im Surround-Feld (z.B. vorne/hinten/seitlich).
-*   **Preset:** Eine gespeicherte Sammlung von Einstellungen (Parameterwerten) für das Tool.
-*   **Pydub:** Eine Python-Bibliothek zur einfachen Bearbeitung von Audiodateien.
-*   **Spectrogram:** Eine visuelle Darstellung der Frequenzanteile eines Audiosignals über die Zeit. Die Intensität der Frequenzen wird oft durch Farben dargestellt.
-*   **Split IR:** Die Aufteilung der Impulsantwort in getrennte Teile für Early Reflections und Late Reverb.
-*   **Surround 5.1:** Ein Mehrkanal-Audioformat mit sechs Kanälen: Front Left (FL), Front Right (FR), Center (C), Low-Frequency Effects (LFE, Subwoofer), Rear Left (RL/SL), Rear Right (RR/SR).
-*   **WAV:** Ein unkomprimiertes Standard-Audio-Dateiformat.
+*   **Raumgröße:** Beeinflusst indirekt Halldauer, Delay-Zeiten und Reflexionsdichte. Größere Werte simulieren größere Räume.
+*   **Diffusion:** Steuert, wie "glatt" oder "körnig" der Nachhall klingt. Höhere Werte führen zu einem dichteren, weniger diskreten Hall.
+*   **Luftabsorption:** Simuliert die natürliche Dämpfung hoher Frequenzen in der Luft über Distanz. Höhere Werte führen zu einem dunkleren Nachhall.
+*   **Dry Kill Start:** Der Punkt im Dry/Wet-Mix (0-1), ab dem das *trockene* Signal beginnt, linear ausgeblendet zu werden. Bei 1.0 wird das Dry-Signal nie komplett ausgeblendet (nur durch den Dry/Wet-Regler skaliert). Bei 0.0 beginnt das Ausblenden sofort, wenn Wet > 0 ist.
+*   **3D Position Z:** Beeinflusst die Balance zwischen vorderen und hinteren Kanälen beim Panning und die Intensität der generierten Höhenkanäle im 5.1.2-Modus.
 
 ---
 
-## 🤝 Mitwirken (Contributing)
+## 📁 Presets
 
-Beiträge sind willkommen! Wenn du Fehler findest oder Vorschläge für neue Funktionen hast, erstelle bitte ein [Issue](https://github.com/DEIN_BENUTZERNAME/DEIN_REPO_NAME/issues) auf GitHub. Pull Requests sind ebenfalls willkommen.
+*   Presets werden als `.json`-Dateien im Unterordner `presets_v4` gespeichert.
+*   Sie enthalten alle einstellbaren Parameter der Hauptverarbeitungsseite.
+*   Die Anwendung speichert, welches Preset zuletzt geladen wurde (in `last_preset_v4.txt`) und lädt dieses beim nächsten Start automatisch.
+
+---
+
+## 🖼️ Surround Map Bild
+
+*   Die Anwendung benötigt eine Bilddatei namens `surround_layout_3d.png` im selben Verzeichnis wie das Skript für die interaktive Positionierungskarte.
+*   Wenn die Datei beim Start nicht gefunden wird, wird automatisch ein einfacher Platzhalter erstellt. Sie können diese Datei durch ein eigenes Bild (z.B. mit eingezeichneten Lautsprecherpositionen) ersetzen.
+
+---
+
+## ⚠️ Wichtige Hinweise
+
+*   **FFmpeg:** Stellen Sie sicher, dass FFmpeg korrekt installiert und im Systempfad ist, wenn Sie andere Formate als WAV laden möchten.
 
 ---
 
 ## 📜 Lizenz
 
-Dieses Projekt ist unter der MIT-Lizenz lizenziert. Siehe die [LICENSE](LICENSE)-Datei für Details. (Passe dies an, falls du eine andere Lizenz verwendest).
+
+
 ```
-
-
