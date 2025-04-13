@@ -80,7 +80,7 @@ Die Anwendung benötigt folgende Python-Bibliotheken:
 Führen Sie das Python-Skript im Terminal aus:
 
 ```bash
-python test.py
+python raytracer_studio.py
 ```
 
 Die Anwendung sollte starten und eine lokale URL ausgeben (standardmäßig `http://0.0.0.0:8861` oder `http://127.0.0.1:8861`). Öffnen Sie diese URL in Ihrem Webbrowser.
